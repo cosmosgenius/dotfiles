@@ -1,10 +1,12 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/sharat/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -49,17 +51,15 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(gitfast github common-aliases fabric celery django gulp nmap osx pip redis-cli tmux brew yarn)
+plugins=(gitfast github common-aliases fabric celery django gulp nmap osx pip redis-cli tmux brew)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 POSTGRES_PATH=/Applications/Postgres.app/Contents/Versions/latest/bin
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$POSTGRES_PATH"
+export PATH="$PATH:$POSTGRES_PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -76,7 +76,7 @@ export LC_ALL=en_US.UTF-8
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -84,19 +84,29 @@ export LC_ALL=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="subl ~/.zshrc"
+alias zshconfig="code ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 eval "$(jump shell)"
-
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 source /usr/local/bin/virtualenvwrapper.sh
 
-export PATH=~/.npm-packages/bin:$PATH
+export ANDROID_NDK_ROOT="/usr/local/share/android-ndk"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:~/.npm-packages/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+
+export GOROOT_BOOTSTRAP=$(/usr/local/opt/go@1.8/bin/go env GOROOT)
+
+source $HOME/.cargo/env
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# added by travis gem
-[ -f /Users/sharat/.travis/travis.sh ] && source /Users/sharat/.travis/travis.sh
+export THEOS=~/theos
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
